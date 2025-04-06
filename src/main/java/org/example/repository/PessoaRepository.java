@@ -9,14 +9,14 @@ import java.util.List;
 
 public class PessoaRepository {
     
-    PessoaRepository(){
+    public PessoaRepository(){
         createTable();
     }
     private void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS pessoa (\n"
                 + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " nome TEXT NOT NULL,\n"
-                + " cpf TEXT NOT NULL\n"
+                + " cpf TEXT NOT NULL,\n"
                 + " email TEXT NOT NULL\n"
                 + ");";
 
