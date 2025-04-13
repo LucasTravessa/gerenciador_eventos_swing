@@ -10,32 +10,27 @@ import org.example.view.ListarInscritosView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListarInscritosController {
-    private ListarInscritosView view;
-    private PessoaRepository pessoaRepository;
-    private EventoRepository eventoRepository;
-    private PessoaEventoRepository pessoaEventoRepository;
+    private final ListarInscritosView view;
+    private final EventoRepository eventoRepository;
+    private final PessoaEventoRepository pessoaEventoRepository;
 
-    private List<Pessoa> pessoas;
+    private final List<Pessoa> pessoas;
 
     public ListarInscritosController(ListarInscritosView view) {
         this.view = view;
 
-        this.pessoaRepository = new PessoaRepository();
+        PessoaRepository pessoaRepository = new PessoaRepository();
         this.eventoRepository = new EventoRepository();
         this.pessoaEventoRepository = new PessoaEventoRepository();
 
         this.pessoas = pessoaRepository.getAllPessoas();
 
-        // Adiciona ação ao botão de buscar
         this.view.getBuscarButton().addActionListener(new BuscarInscritosListener());
     }
 
-    // ActionListener para o botão de buscar
     private class BuscarInscritosListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -44,8 +39,8 @@ public class ListarInscritosController {
     }
 
     private void buscarInscritosPorEvento() {
-        String nomeEvento = view.getNomeEvento().trim();  // Remove espaços em branco extras
-        view.limparInscritos(); // Limpa a área de texto antes de mostrar os novos resultados
+        String nomeEvento = view.getNomeEvento().trim();
+        view.limparInscritos();
 
         Evento evento = eventoRepository.getEventoByNome(nomeEvento);
 
@@ -56,10 +51,10 @@ public class ListarInscritosController {
 
         List<Integer> pessoasIdEvento = pessoaEventoRepository.getPessoasForEvento(evento.getId());
 
-        pessoasIdEvento.forEach((pessoaId) ->{
-            pessoas.stream()
-                    .filter(p -> p.getId().equals(pessoaId)).findFirst().ifPresent(pessoa -> view.addInscrito(pessoa.getNome()));
-        });
+        pessoasIdEvento.forEach((pessoaId) -> pessoas.stream()
+                .filter(p -> p.getId().equals(pessoaId))
+                .findFirst()
+                .ifPresent(pessoa -> view.addInscrito(pessoa.getNome())));
     }
 
 }

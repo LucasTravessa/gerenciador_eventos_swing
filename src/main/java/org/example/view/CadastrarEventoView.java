@@ -5,29 +5,25 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class CadastrarEventoView extends JPanel {
-    private JTextField nomeField;
-    private JTextField tipoField;
-    private JTextField localField;
-    private JButton salvarButton;
+    private final JTextField nomeField;
+    private final JTextField tipoField;
+    private final JTextField localField;
+    private final JButton salvarButton;
 
     public CadastrarEventoView() {
-        // Define o layout
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // Margem reduzida
         gbc.anchor = GridBagConstraints.CENTER; // Centraliza o conteúdo
 
-        // Cria os componentes
         nomeField = new JTextField(25); // Menor comprimento
         tipoField = new JTextField(25); // Menor comprimento
         localField = new JTextField(25); // Menor comprimento
         salvarButton = new JButton("Salvar");
 
-        // Estiliza o botão
         salvarButton.setPreferredSize(new Dimension(80, 30)); // Dimensões do botão
 
-        // Adiciona os componentes ao painel
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(new JLabel("Nome:"), gbc);
@@ -56,7 +52,6 @@ public class CadastrarEventoView extends JPanel {
         add(salvarButton, gbc);
     }
 
-    // Métodos para obter os valores inseridos
     public String getNome() {
         return nomeField.getText();
     }
@@ -71,13 +66,12 @@ public class CadastrarEventoView extends JPanel {
 
     public void setSalvarEventoListener(ActionListener listener) {
 
-        // Remove todos os listeners antes de adicionar o novo
         for (ActionListener al : salvarButton.getActionListeners()) {
 
             salvarButton.removeActionListener(al);
 
         }
-        // Adiciona o listener ao botão
+
         salvarButton.addActionListener(listener);
     }
 }

@@ -10,14 +10,12 @@ import org.example.view.InscreverPessoaView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.*;
 
 public class InscreverPessoaController {
-    private InscreverPessoaView view;
-    private PessoaRepository pessoaRepository;
-    private EventoRepository eventoRepository;
-    private PessoaEventoRepository pessoaEventoRepository;
+    private final InscreverPessoaView view;
+    private final PessoaRepository pessoaRepository;
+    private final EventoRepository eventoRepository;
+    private final PessoaEventoRepository pessoaEventoRepository;
 
     public InscreverPessoaController(InscreverPessoaView view) {
         this.view = view;
@@ -42,14 +40,14 @@ public class InscreverPessoaController {
                 return;
             }
 
-           Evento evento = eventoRepository.getEventoByNome(nomeEvento);
+            Evento evento = eventoRepository.getEventoByNome(nomeEvento);
             if (evento == null) {
                 JOptionPane.showMessageDialog(view, "Evento " + nomeEvento + " não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             pessoaEventoRepository.addPessoaToEvento(pessoa.getId(), evento.getId());
-    
+
             JOptionPane.showMessageDialog(view, "Pessoa " + cpfPessoa + " inscrita no evento " + nomeEvento + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }
     }

@@ -5,29 +5,25 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class CadastrarPessoaView extends JPanel {
-    private JTextField nomeField;
-    private JTextField cpfField;
-    private JTextField emailField;
-    private JButton salvarButton;
+    private final JTextField nomeField;
+    private final JTextField cpfField;
+    private final JTextField emailField;
+    private final JButton salvarButton;
 
     public CadastrarPessoaView() {
-        // Define o layout
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // Margem maior para o espaçamento
         gbc.anchor = GridBagConstraints.CENTER; // Centraliza o conteúdo
 
-        // Cria os componentes
         nomeField = new JTextField(25);
         cpfField = new JTextField(25);
         emailField = new JTextField(25);
         salvarButton = new JButton("Salvar");
 
-        // Estiliza o botão
         salvarButton.setPreferredSize(new Dimension(80, 30)); // Dimensões do botão
 
-        // Adiciona os componentes ao painel
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(new JLabel("Nome"), gbc);
@@ -51,12 +47,11 @@ public class CadastrarPessoaView extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 2; // O botão ocupa duas colunas
-        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o botão
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         add(salvarButton, gbc);
     }
 
-    // Métodos para obter os valores inseridos
     public String getNome() {
         return nomeField.getText();
     }
@@ -71,13 +66,12 @@ public class CadastrarPessoaView extends JPanel {
 
     public void setSalvarPessoaListener(ActionListener listener) {
 
-        // Remove todos os listeners antes de adicionar o novo
         for (ActionListener al : salvarButton.getActionListeners()) {
 
             salvarButton.removeActionListener(al);
-        
+
         }
-        // Adiciona o listener ao botão
+
         salvarButton.addActionListener(listener);
     }
 }
