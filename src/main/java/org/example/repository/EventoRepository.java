@@ -17,8 +17,7 @@ public class EventoRepository {
                 + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " nome TEXT NOT NULL,\n"
                 + " tipo TEXT NOT NULL,\n"
-                + " local TEXT NOT NULL,\n"
-                + " data TEXT NOT NULL\n"
+                + " local TEXT NOT NULL\n"
                 + ");";
 
         try (Connection conn = SqliteConnection.connect();
@@ -30,14 +29,13 @@ public class EventoRepository {
     }
 
     public void addEvento(Evento evento) {
-        String sql = "INSERT INTO evento(nome, tipo, local, data) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO evento(nome, tipo, local) VALUES(?,?,?)";
 
         try (Connection conn = SqliteConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, evento.getNome());
             pstmt.setString(2, evento.getTipo());
             pstmt.setString(3, evento.getLocal());
-            pstmt.setString(4, evento.getData());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -45,7 +43,7 @@ public class EventoRepository {
     }
 
     public List<Evento> getAllEventos() {
-        String sql = "SELECT id, nome, tipo, local, data FROM evento";
+        String sql = "SELECT id, nome, tipo, local FROM evento";
         List<Evento> eventos = new ArrayList<>();
 
         try (Connection conn = SqliteConnection.connect();
@@ -53,7 +51,7 @@ public class EventoRepository {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                eventos.add(new Evento(rs.getInt("id"), rs.getString("nome"), rs.getString("tipo"), rs.getString("local"), rs.getString("data")));
+                eventos.add(new Evento(rs.getInt("id"), rs.getString("nome"), rs.getString("tipo"), rs.getString("local")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -63,7 +61,7 @@ public class EventoRepository {
     }
 
     public Evento getEventoById(int id) {
-        String sql = "SELECT id, nome, tipo, local, data FROM evento WHERE id = ?";
+        String sql = "SELECT id, nome, tipo, local FROM evento WHERE id = ?";
         Evento evento = null;
 
         try (Connection conn = SqliteConnection.connect();
@@ -72,7 +70,7 @@ public class EventoRepository {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                evento = new Evento(rs.getInt("id"), rs.getString("tipo"), rs.getString("local"), rs.getString("nome"), rs.getString("data"));
+                evento = new Evento(rs.getInt("id"), rs.getString("tipo"), rs.getString("local"), rs.getString("nome"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -81,15 +79,14 @@ public class EventoRepository {
     }
 
     public void updateEvento(Evento evento) {
-        String sql = "UPDATE evento SET nome = ?, tipo = ?, local = ?, data = ? WHERE id = ?";
+        String sql = "UPDATE evento SET nome = ?, tipo = ?, local = ? WHERE id = ?";
 
         try (Connection conn = SqliteConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, evento.getNome());
             pstmt.setString(2, evento.getTipo());
             pstmt.setString(3, evento.getLocal());
-            pstmt.setString(4, evento.getData());
-            pstmt.setInt(5, evento.getId());
+            pstmt.setInt(4, evento.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

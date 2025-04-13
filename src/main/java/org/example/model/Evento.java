@@ -6,9 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Evento {
-    private int id;
+    private Integer id;
     private String nome;
     private String tipo;
     private String local;
-    private String data;
 }

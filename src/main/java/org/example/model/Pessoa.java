@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Pessoa {
-    private int id;
+    private Integer id;
     private String nome;
     private String cpf;
     private String email;
