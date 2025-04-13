@@ -34,8 +34,6 @@ public class ListarInscritosView extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(inscritosArea);
         add(scrollPane, BorderLayout.CENTER);
-
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Inscritos"));
     }
 
     public void addInscrito(String inscrito) {

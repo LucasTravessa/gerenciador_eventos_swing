@@ -12,17 +12,18 @@ public class CadastrarPessoaView extends JPanel {
 
     public CadastrarPessoaView() {
         setLayout(new GridBagLayout());
+        setBackground(Color.YELLOW);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Margem maior para o espaçamento
-        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o conteúdo
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
 
         nomeField = new JTextField(25);
         cpfField = new JTextField(25);
         emailField = new JTextField(25);
         salvarButton = new JButton("Salvar");
 
-        salvarButton.setPreferredSize(new Dimension(80, 30)); // Dimensões do botão
+        salvarButton.setPreferredSize(new Dimension(80, 30));
 
         gbc.gridx = 0;
         gbc.gridy = 0;

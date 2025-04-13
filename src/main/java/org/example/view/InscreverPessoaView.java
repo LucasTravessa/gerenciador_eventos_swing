@@ -11,16 +11,17 @@ public class InscreverPessoaView extends JPanel {
 
     public InscreverPessoaView() {
         setLayout(new GridBagLayout());
+        setBackground(Color.cyan);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Margem para espaçamento
-        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o conteúdo
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
 
         cpfPessoaField = new JTextField(20);
         nomeEventoField = new JTextField(20);
         inscreverButton = new JButton("Inscrever");
 
-        inscreverButton.setPreferredSize(new Dimension(100, 30)); // Dimensões do botão
+        inscreverButton.setPreferredSize(new Dimension(100, 30));
 
         gbc.gridx = 0;
         gbc.gridy = 0;

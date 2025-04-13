@@ -12,17 +12,18 @@ public class CadastrarEventoView extends JPanel {
 
     public CadastrarEventoView() {
         setLayout(new GridBagLayout());
+        setBackground(Color.GREEN);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Margem reduzida
-        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o conteúdo
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        nomeField = new JTextField(25); // Menor comprimento
-        tipoField = new JTextField(25); // Menor comprimento
-        localField = new JTextField(25); // Menor comprimento
+        nomeField = new JTextField(25);
+        tipoField = new JTextField(25);
+        localField = new JTextField(25);
         salvarButton = new JButton("Salvar");
 
-        salvarButton.setPreferredSize(new Dimension(80, 30)); // Dimensões do botão
+        salvarButton.setPreferredSize(new Dimension(80, 30));
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -47,8 +48,8 @@ public class CadastrarEventoView extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 2; // O botão ocupa duas colunas
-        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o botão
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         add(salvarButton, gbc);
     }
 
