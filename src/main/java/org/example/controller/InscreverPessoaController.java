@@ -19,17 +19,12 @@ public class InscreverPessoaController {
     private EventoRepository eventoRepository;
     private PessoaEventoRepository pessoaEventoRepository;
 
-    private List<Pessoa> pessoas;
-    private List<Evento> eventos;
-
     public InscreverPessoaController(InscreverPessoaView view) {
         this.view = view;
         this.pessoaRepository = new PessoaRepository();
         this.eventoRepository = new EventoRepository();
         this.pessoaEventoRepository = new PessoaEventoRepository();
 
-        this.pessoas = pessoaRepository.getAllPessoas();
-        this.eventos = eventoRepository.getAllEventos();
 
         this.view.setInscreverPessoaListener(new InscreverPessoaListener());
     }
@@ -40,24 +35,20 @@ public class InscreverPessoaController {
         public void actionPerformed(ActionEvent e) {
             String cpfPessoa = view.getNomePessoa();
             String nomeEvento = view.getNomeEvento();
-            System.out.println("CPF digitado: " + cpfPessoa);
-            System.out.println("Evento digitado: " + nomeEvento);
 
-            // Verifica se o CPF e o nome do evento existem
-            Optional<Pessoa> pessoa = pessoas.stream().filter(p -> Objects.equals(p.getCpf(), cpfPessoa)).findFirst();
-            if (pessoa.isEmpty()) {
+            Pessoa pessoa = pessoaRepository.getPessoaByCpf(cpfPessoa);
+            if (pessoa == null) {
                 JOptionPane.showMessageDialog(view, "CPF " + cpfPessoa + " não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Optional<Evento> evento = eventos.stream().filter(ev -> Objects.equals(ev.getNome(), nomeEvento)).findFirst();
-            if (evento.isEmpty()) {
+           Evento evento = eventoRepository.getEventoByNome(nomeEvento);
+            if (evento == null) {
                 JOptionPane.showMessageDialog(view, "Evento " + nomeEvento + " não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-    
-            // Se ambos existem, prossegue com a inscrição
-            pessoaEventoRepository.addPessoaToEvento(pessoa.get().getId(), evento.get().getId());
+
+            pessoaEventoRepository.addPessoaToEvento(pessoa.getId(), evento.getId());
     
             JOptionPane.showMessageDialog(view, "Pessoa " + cpfPessoa + " inscrita no evento " + nomeEvento + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }
