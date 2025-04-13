@@ -76,13 +76,6 @@ public class EventoRepository {
             System.out.println(e.getMessage());
         }
 
-        if(evento != null){
-            System.out.println(evento.getNome());
-
-        }else{
-            System.out.println("No evento");
-        }
-
         return evento;
 
     }
