@@ -29,8 +29,8 @@ public class CadastrarEventoController {
             String tipo = view.getTipo();
             String local = view.getLocal();
 
-//            Evento evento = new Evento(nome, tipo, local);
-//            eventoRepository.addEvento(evento);
+            Evento evento = new Evento(null,nome, tipo, local);
+            eventoRepository.addEvento(evento);
 
             JOptionPane.showMessageDialog(view, "Evento salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }

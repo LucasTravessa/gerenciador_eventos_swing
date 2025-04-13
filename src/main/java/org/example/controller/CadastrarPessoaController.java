@@ -29,8 +29,8 @@ public class CadastrarPessoaController {
             String cpf = view.getCpf();
             String email = view.getEmail();
     
-//            Pessoa pessoa = new Pessoa(nome, cpf, email);
-//            pessoaRepository.addPessoa(pessoa);
+            Pessoa pessoa = new Pessoa(null, nome, cpf, email);
+            pessoaRepository.addPessoa(pessoa);
     
             JOptionPane.showMessageDialog(view, "Pessoa salva com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }
