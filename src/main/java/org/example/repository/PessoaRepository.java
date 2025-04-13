@@ -60,6 +60,25 @@ public class PessoaRepository {
         return pessoas;
     }
 
+    public Pessoa getPessoaByCpf(String cpf) {
+        String sql = "SELECT id, nome, cpf, email FROM pessoa WHERE cpf LIKE ?";
+        Pessoa pessoa = null;
+
+        try (Connection conn = SqliteConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cpf);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                pessoa = new Pessoa(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"),rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return pessoa;
+    }
+
     public Pessoa getPessoaById(int id) {
         String sql = "SELECT id, nome, cpf, email FROM pessoa WHERE id = ?";
         Pessoa pessoa = null;

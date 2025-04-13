@@ -60,6 +60,33 @@ public class EventoRepository {
         return eventos;
     }
 
+    public Evento getEventoByNome(String nome) {
+        String sql = "SELECT id, nome, tipo, local FROM evento WHERE nome LIKE ?";
+        Evento evento = null;
+
+        try (Connection conn = SqliteConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nome);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                evento = new Evento(rs.getInt("id"), rs.getString("tipo"), rs.getString("local"), rs.getString("nome"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        if(evento != null){
+            System.out.println(evento.getNome());
+
+        }else{
+            System.out.println("No evento");
+        }
+
+        return evento;
+
+    }
+
     public Evento getEventoById(int id) {
         String sql = "SELECT id, nome, tipo, local FROM evento WHERE id = ?";
         Evento evento = null;
