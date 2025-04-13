@@ -21,9 +21,6 @@ public class ListarInscritosController {
     private PessoaEventoRepository pessoaEventoRepository;
 
     private List<Pessoa> pessoas;
-    private List<Evento> eventos;
-    private List<Integer> pessoasIdEvento;
-
 
     public ListarInscritosController(ListarInscritosView view) {
         this.view = view;
@@ -50,15 +47,19 @@ public class ListarInscritosController {
         String nomeEvento = view.getNomeEvento().trim();  // Remove espaços em branco extras
         view.limparInscritos(); // Limpa a área de texto antes de mostrar os novos resultados
 
-        boolean eventoEncontrado = false;
+        Evento evento = eventoRepository.getEventoByNome(nomeEvento);
 
-        // Percorre as inscrições e busca pelo nome do evento
-//        view.addInscrito(nomePessoa); // Exibe o nome da pessoa inscrita
-
-
-        if (!eventoEncontrado) {
+        if (evento == null) {
             JOptionPane.showMessageDialog(view, "Nenhum inscrito encontrado para o evento: " + nomeEvento, "Evento não encontrado", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        List<Integer> pessoasIdEvento = pessoaEventoRepository.getPessoasForEvento(evento.getId());
+
+        pessoasIdEvento.forEach((pessoaId) ->{
+            pessoas.stream()
+                    .filter(p -> p.getId().equals(pessoaId)).findFirst().ifPresent(pessoa -> view.addInscrito(pessoa.getNome()));
+        });
     }
 
 }
